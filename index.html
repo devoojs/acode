@@ -15,27 +15,32 @@
 </div>
 <script src="https://embed.runkit.com" data-element-id="my-element"></script>
     
-    <script src="https://embed.runkit.com"></script>
-<style>.embed { overflow: visible; }</style>
-<pre class="embed" data-gutter="inside">console.log("hello inside");
-1 + 1</pre>
-<pre class="embed" data-gutter="outside">console.log("hello outside");
-1 + 1</pre>
-<pre class="embed" data-gutter="none">console.log("hello none");
-1 + 1</pre>
+ <script src="https://embed.runkit.com"></script>
+<rk-embed>console.log("hello world")</rk-embed>
 <script>
-const elements = [...document.getElementsByClassName('embed')]
-const notebooks = elements.reduce((notebooks, element) => {
-    const innerText = element.firstChild
-    const currentCell = window.RunKit.createNotebook({
-        element,
-        gutterStyle: element.getAttribute("data-gutter"),
-        source: innerText.textContent,
-        // Remove the text content of the pre tag after the embed has loaded
-        onLoad: () => innerText.remove()
-    })
-  return notebooks
-}, [])
+class RunKitEmbed extends HTMLElement {
+    constructor() {
+        super();
+        const wrapper = document.createElement('div')
+        wrapper.style = "margin: 20pt"
+
+        const source = this.textContent
+        this.textContent = ""
+        const tempCodePlaceholder = document.createElement('pre')
+        tempCodePlaceholder.textContent = source
+
+        window.RunKit.createNotebook({
+            element: wrapper,
+            source,
+            onLoad: () => tempCodePlaceholder.remove()
+        })
+        this.appendChild(wrapper)
+        this.appendChild(tempCodePlaceholder)
+    }
+}
+customElements.define('rk-embed', RunKitEmbed);
 </script>
+    
+    
 </body>
 </html>
