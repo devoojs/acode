@@ -5,12 +5,7 @@
 <link rel="stylesheet" href="lib/codemirror.css">
 </head>
 <body>
-  
-  ```javascript
-  function square( number ) {
-  return number * number;
-}
-  ```
+
 
   <div id="editor">
   function square( number ) {
@@ -20,7 +15,7 @@
 
 <script src="lib/codemirror.js"></script>
 <script>
-  var editor = CodeMirror.fromTextArea(myTextarea, {
+  var editor = CodeMirror.fromTextArea(document.getElementById("demotext"), {
     lineNumbers: true
   });
 </script>
