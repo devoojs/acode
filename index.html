@@ -41,63 +41,27 @@
 <body>
 <main>
     <div class="editor language-js">
-    (function( global ) {
-  var Module = (function() {
-
-    var data = "secret";
-
-    return {
-      // This is some boolean property
-      bool: true,
-      // Some string value
-      string: "a string",
-      // An array property
-      array: [ 1, 2, 3, 4 ],
-      // An object property
-      object: {
-        lang: "en-Us"
-      },
-      getData: function() {
-        // get the current value of `data`
-        return data;
-      },
-      setData: function( value ) {
-        // set the value of `data` and return it
-        return ( data = value );
-      }
-    };
-  })();
-
-  // Other things might happen here
-
-  // expose our module to the global object
-  global.Module = Module;
-
-})( this );
+    
+        
     </div>
 </main>
-<script type="module">
-  import {CodeJar} from './codejar.js'
-  import {withLineNumbers} from './linenumbers.js';
+    <div class="editor">
+    
+if(condition) doSomething();
 
-  const editor = document.querySelector('.editor')
+while(condition) iterating++;
 
-  const highlight = editor => {
-    // highlight.js does not trim old tags,
-    // let's do it by this hack.
-    editor.textContent = editor.textContent
-    hljs.highlightBlock(editor)
-  }
+for(var i=0;i<100;i++) someIterativeFn();
 
-  const jar = CodeJar(editor, withLineNumbers(highlight), {
-    indentOn: /[(\[{]$/
-  })
-
-  jar.updateCode(localStorage.getItem('code'))
-  jar.onUpdate(code => {
-    localStorage.setItem('code', code)
-  })
+    
+    </div>
+<script>
+  let jar = CodeJar(document.querySelector('.editor'), Prism.highlightElement)
 </script>
+    <script type="module">
+  import {CodeJar} from 'https://medv.io/codejar/codejar.js'
+</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
 </body>
 </html>
